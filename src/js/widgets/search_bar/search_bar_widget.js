@@ -155,7 +155,9 @@ define([
           }
           // create the popover
           const syntax = data.syntax.map((s) => `<code>${s}</code>`).join(', ');
-          const example = data.example.map((e) => `<code>${e}</code>`).join(', ');
+          const example = data.example
+            .map((e) => `<code>${e}</code>`)
+            .join(', ');
           $('.select2-dropdown')
             .popover({
               title: `<strong>${data.title}</strong>`,
@@ -296,15 +298,14 @@ define([
       //
       switch (label) {
         case 'fields':
-          {
-            if (val === 'first-author') {
-              val = 'author';
-              selected = selected.replace(/"/, '"^');
-            } else if (val === 'year') {
-              selected = selected.replace(/"/g, '');
-            }
-            newVal = val + ':' + selected;
+        case 'technical metadata fields':
+          if (val === 'first-author') {
+            val = 'author';
+            selected = selected.replace(/"/, '"^');
+          } else if (val === 'year') {
+            selected = selected.replace(/"/g, '');
           }
+          newVal = val + ':' + selected;
           break;
         case 'operators':
           newVal = val + '(' + (selected === '""' ? '' : selected) + ')';
@@ -316,6 +317,8 @@ define([
             newVal = selected + val;
           }
           specialCharacter = true;
+          break;
+        default:
           break;
       }
 
