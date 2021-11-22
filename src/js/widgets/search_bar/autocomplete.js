@@ -1,5 +1,13 @@
 define(['jquery', 'analytics'], function($, analytics) {
   const autocompleteSource = [
+    {
+      value: 'abs:""',
+      label: 'Search abstract + title + keywords',
+      match: 'abs:',
+    },
+    { value: 'aff:""', label: 'Affiliation', match: 'affiliation' },
+    { value: 'aff:""', label: 'Affiliation', match: 'aff:' },
+
     { value: 'author:""', label: 'Author', match: 'author:"' },
 
     { value: 'author:"^"', label: 'First Author', match: 'author:"' },
@@ -18,45 +26,6 @@ define(['jquery', 'analytics'], function($, analytics) {
       label: 'Publication (must use bibstem)',
       desc: 'e.g. bibstem:ApJ',
       match: 'publication (bibstem)',
-    },
-
-    { value: 'arXiv:', label: 'arXiv ID', match: 'arxiv:' },
-    { value: 'doi:', label: 'DOI', match: 'doi:' },
-
-    {
-      value: 'full:""',
-      label: 'Full text search',
-      desc: 'title, abstract, and body',
-      match: 'full:',
-    },
-    {
-      value: 'full:""',
-      label: 'Full text search',
-      desc: 'itle, abstract, and body',
-      match: 'fulltext',
-    },
-    {
-      value: 'full:""',
-      label: 'Full text search',
-      desc: 'title, abstract, and body',
-      match: 'text',
-    },
-
-    { value: 'year:', label: 'Year', match: 'year' },
-    {
-      value: 'year:',
-      label: 'Year Range',
-      desc: 'e.g. 1999-2005',
-      match: 'year range',
-    },
-
-    { value: 'aff:""', label: 'Affiliation', match: 'affiliation' },
-    { value: 'aff:""', label: 'Affiliation', match: 'aff:' },
-
-    {
-      value: 'abs:""',
-      label: 'Search abstract + title + keywords',
-      match: 'abs:',
     },
 
     {
@@ -80,17 +49,143 @@ define(['jquery', 'analytics'], function($, analytics) {
       match: 'collection:physics',
     },
 
-    // hide this one
-    //    {value: "abstract:\"\"" , label : "Abstract", match: "abstract:("},
+    {
+      value: 'doctype:eprint',
+      label: 'Limit to eprints',
+      desc: '(doctype:eprint)',
+      match: 'eprint',
+    },
+    {
+      value: 'doctype:eprint',
+      label: 'Limit to eprints',
+      desc: '(doctype:eprint)',
+      match: 'doctype:eprint',
+    },
+    {
+      value: 'doctype:eprint',
+      label: 'Limit to eprints',
+      desc: '(doctype:eprint)',
+      match: 'property:eprint',
+    },
+    {
+      value: 'doctype:software',
+      label: 'Limit to software',
+      desc: '(doctype:software)',
+      match: 'software',
+    },
+    {
+      value: 'doctype:software',
+      label: 'Limit to software',
+      desc: '(doctype:software)',
+      match: 'doctype:software',
+    },
 
-    { value: 'title:""', label: 'Title', match: 'title:(' },
+    {
+      value: 'doctype:inproceedings',
+      label: 'Limit to papers in conference proceedings',
+      desc: '(doctype:inproceedings)',
+      match: 'conference proceedings',
+    },
+    {
+      value: 'doctype:inproceedings',
+      label: 'Limit to papers in conference proceedings',
+      desc: '(doctype:inproceedings)',
+      match: 'doctype:inproceedings',
+    },
+    {
+      value: 'doctype:inproceedings',
+      label: 'Limit to papers in conference proceedings',
+      desc: '(doctype:inproceedings)',
+      match: 'property:inproceedings',
+    },
 
-    { value: 'orcid:', label: 'ORCiD identifier', match: 'orcid:' },
+    { value: 'doi:', label: 'DOI', match: 'doi:' },
+
+    {
+      value: 'full:""',
+      label: 'Full text search',
+      desc: 'title, abstract, and body',
+      match: 'full:',
+    },
+    {
+      value: 'full:""',
+      label: 'Full text search',
+      desc: 'itle, abstract, and body',
+      match: 'fulltext',
+    },
+    {
+      value: 'full:""',
+      label: 'Full text search',
+      desc: 'title, abstract, and body',
+      match: 'text',
+    },
 
     {
       value: 'object:',
       label: 'SIMBAD object (e.g. object:LMC)',
       match: 'object:',
+    },
+
+    { value: 'orcid:', label: 'ORCiD identifier', match: 'orcid:' },
+
+    {
+      value: 'property:openaccess',
+      label: 'Limit to open access',
+      desc: '(property:openaccess)',
+      match: 'open access',
+    },
+    {
+      value: 'property:openaccess',
+      label: 'Limit to open access',
+      desc: '(property:openaccess)',
+      match: 'property:openaccess',
+    },
+    {
+      value: 'property:openaccess',
+      label: 'Limit to open access',
+      desc: '(property:openaccess)',
+      match: 'openaccess',
+    },
+    {
+      value: 'property:refereed',
+      label: 'Limit to refereed',
+      desc: '(property:refereed)',
+      match: 'refereed',
+    },
+    {
+      value: 'property:refereed',
+      label: 'Limit to refereed',
+      desc: '(property:refereed)',
+      match: 'property:refereed',
+    },
+
+    {
+      value: 'property:notrefereed',
+      label: 'Limit to non-refereed',
+      desc: '(property:notrefereed)',
+      match: 'non-refereed',
+    },
+    {
+      value: 'property:notrefereed',
+      label: 'Limit to non-refereed',
+      desc: '(property:notrefereed)',
+      match: 'property:notrefereed',
+    },
+    {
+      value: 'property:notrefereed',
+      label: 'Limit to non-refereed',
+      desc: '(property:notrefereed)',
+      match: 'notrefereed',
+    },
+
+    { value: 'title:""', label: 'Title', match: 'title:(' },
+
+    { value: 'year:', label: 'Year', match: 'year' },
+    {
+      value: 'year:',
+      label: 'Year Range',
+      desc: 'e.g. 1999-2005',
+      match: 'year range',
     },
 
     {
@@ -126,107 +221,6 @@ define(['jquery', 'analytics'], function($, analytics) {
       desc:
         'documents frequently cited by the most relevant papers on the topic being researched',
       match: 'useful(',
-    },
-
-    {
-      value: 'property:refereed',
-      label: 'Limit to refereed',
-      desc: '(property:refereed)',
-      match: 'refereed',
-    },
-    {
-      value: 'property:refereed',
-      label: 'Limit to refereed',
-      desc: '(property:refereed)',
-      match: 'property:refereed',
-    },
-
-    {
-      value: 'property:notrefereed',
-      label: 'Limit to non-refereed',
-      desc: '(property:notrefereed)',
-      match: 'non-refereed',
-    },
-    {
-      value: 'property:notrefereed',
-      label: 'Limit to non-refereed',
-      desc: '(property:notrefereed)',
-      match: 'property:notrefereed',
-    },
-    {
-      value: 'property:notrefereed',
-      label: 'Limit to non-refereed',
-      desc: '(property:notrefereed)',
-      match: 'notrefereed',
-    },
-
-    {
-      value: 'doctype:eprint',
-      label: 'Limit to eprints',
-      desc: '(doctype:eprint)',
-      match: 'eprint',
-    },
-    {
-      value: 'doctype:eprint',
-      label: 'Limit to eprints',
-      desc: '(doctype:eprint)',
-      match: 'doctype:eprint',
-    },
-    {
-      value: 'doctype:eprint',
-      label: 'Limit to eprints',
-      desc: '(doctype:eprint)',
-      match: 'property:eprint',
-    },
-    {
-      value: 'property:openaccess',
-      label: 'Limit to open access',
-      desc: '(property:openaccess)',
-      match: 'open access',
-    },
-    {
-      value: 'property:openaccess',
-      label: 'Limit to open access',
-      desc: '(property:openaccess)',
-      match: 'property:openaccess',
-    },
-    {
-      value: 'property:openaccess',
-      label: 'Limit to open access',
-      desc: '(property:openaccess)',
-      match: 'openaccess',
-    },
-
-    {
-      value: 'doctype:software',
-      label: 'Limit to software',
-      desc: '(doctype:software)',
-      match: 'software',
-    },
-    {
-      value: 'doctype:software',
-      label: 'Limit to software',
-      desc: '(doctype:software)',
-      match: 'doctype:software',
-    },
-
-    {
-      value: 'doctype:inproceedings',
-      label: 'Limit to papers in conference proceedings',
-      desc: '(doctype:inproceedings)',
-      match: 'conference proceedings',
-    },
-    {
-      value: 'doctype:inproceedings',
-      label: 'Limit to papers in conference proceedings',
-      desc: '(doctype:inproceedings)',
-      match: 'doctype:inproceedings',
-    },
-    {
-      value: 'doctype:inproceedings',
-      label: 'Limit to papers in conference proceedings',
-      desc: '(doctype:inproceedings)',
-      match: 'property:inproceedings',
     },
   ];
 
